@@ -7,6 +7,7 @@ export interface MealItemProps extends React.ComponentProps<any> {
     duration?: number;
     complexity?: string;
     affordability?: string;
+    onPress?: () => void;
 }
 
 
@@ -17,6 +18,7 @@ const MealItem: React.FC<MealItemProps> = (props: MealItemProps) => {
     <View style={styles.mealItem}>
         <Pressable android_ripple={{color: '#ccc'}}
             style={({pressed}) =>  pressed ? styles.buttonPressed : null}
+            onPress={props.onPress}
         >
             <View>
                 <Image source={{uri: props.imageUrl}} style={styles.image} />
