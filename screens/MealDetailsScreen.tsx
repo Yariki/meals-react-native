@@ -2,6 +2,7 @@ import {View, Text, Image, ScrollView} from "react-native";
 import { StyleSheet } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import { useLayoutEffect } from "react";
+import IconButton from "../components/IconButton";
 
 
 export interface MealDetailsScreenProps extends React.ComponentProps<any> {
@@ -14,9 +15,16 @@ const MealDetailsScreen: React.FC<MealDetailsScreenProps> = (props: MealDetailsS
 
     const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
+    function headerButtonPressHandler() {
+        console.log("Header button pressed!");
+    }
+
     useLayoutEffect(() => {
         props.navigation.setOptions({
-            title: selectedMeal?.title
+            title: selectedMeal?.title,
+            headerRight: () => (
+                <IconButton icon="star" color="white" onPress={headerButtonPressHandler} />
+            ),
         });
     }, [mealId, selectedMeal]);
 
