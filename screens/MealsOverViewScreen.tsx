@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect } from "react";
-import { View , Text,  StyleSheet, FlatList} from "react-native";
 import {MEALS, CATEGORIES} from '../data/dummy-data';
-import MealItem from '../components/MealItem';
+import { MealsList } from "../components/MealsList/MealsList";
 
 export interface MealsOverViewScreenProps extends React.ComponentProps<any> {
 
@@ -23,35 +22,10 @@ const MealsOverViewScreen: React.FC<MealsOverViewScreenProps> = (props:  MealsOv
         });
     }, [categoryId]);
     
-    function renderMealItem(itemData: any) {
-
-        function pressHandler() {
-            props.navigation.navigate('MealDetails', {
-                mealId: itemData.item.id
-            });
-        }
-
-        return <MealItem title={itemData.item.title} 
-        imageUrl={itemData.item.imageUrl}
-         duration={itemData.item.duration} 
-         complexity={itemData.item.complexity}
-         affordability={itemData.item.affordability} 
-         onPress={pressHandler} />;
-    }
-
-    return (<>
-        <View style={styles.container}>
-            <FlatList data={displayedMeals} keyExtractor={(item) => item.id} renderItem={renderMealItem} />
-        </View>
-    </>);
+    return (
+        <MealsList meals={displayedMeals} navigation={props.navigation} />
+    )
 }
 
 export default MealsOverViewScreen;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-    }
-
-});
